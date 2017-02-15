@@ -185,13 +185,15 @@ int main(void)
 	
 	if(DCMI_OV7670_Init()==0)
 	{	
+		DCMI_OV7670_ReadID(&OV7670ID);
+		sprintf(strDisp, "ID:0x%02x%02x ", OV7670ID.Manufacturer_ID1, OV7670ID.Manufacturer_ID2);				
+		LCD_DisplayStringLine(LINE(1), (uint8_t*)strDisp); 	
+		
 		if(OV7670ID.Manufacturer_ID1==0x7f && OV7670ID.Manufacturer_ID2==0xa2 
 			&& OV7670ID.Version==0x73 && OV7670ID.PID==0x76){
  			printf("OV7670 ID:0x%x 0x%x 0x%x 0x%x\r\n",
  				OV7670ID.Manufacturer_ID1, OV7670ID.Manufacturer_ID2, OV7670ID.PID, OV7670ID.Version);
 
-			sprintf(strDisp, "ID:0x%02x%02x ", OV7670ID.Manufacturer_ID1, OV7670ID.Manufacturer_ID2);				
-			LCD_DisplayStringLine(LINE(1), (uint8_t*)strDisp); 				
 				
 //			OV2640_Config(cur_img_res);
 //			OV2640_BrightnessConfig(0x20);	
